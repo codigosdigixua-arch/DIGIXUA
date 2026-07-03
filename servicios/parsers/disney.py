@@ -12,16 +12,15 @@ def procesar(texto):
 
         soup = BeautifulSoup(texto, "html.parser")
 
-        # Buscar todos los textos del HTML
-        textos = soup.stripped_strings
+        # Obtener todo el texto del correo
+        contenido = soup.get_text(" ", strip=True)
 
-        for linea in textos:
+        # Buscar cualquier secuencia de 6 dígitos
+        coincidencia = re.search(r"\b\d{6}\b", contenido)
 
-            # Un código Disney siempre son 6 dígitos
-            if re.fullmatch(r"\d{6}", linea):
+        if coincidencia:
 
-                datos["codigo"] = linea
-                return datos
+            datos["codigo"] = coincidencia.group()
 
     except Exception:
         pass

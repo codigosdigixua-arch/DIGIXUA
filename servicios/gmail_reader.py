@@ -77,8 +77,17 @@ def leer_ultimos_correos():
                 respuesta[1]
             )
 
+            # ======================================
+            # Asunto
+            # ======================================
+
+            asunto_original = mensaje.get("Subject")
+
+            if asunto_original is None:
+                continue
+
             asunto, codificacion = decode_header(
-                mensaje["Subject"]
+                asunto_original
             )[0]
 
             if isinstance(asunto, bytes):

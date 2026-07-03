@@ -20,7 +20,6 @@ def inicio():
             correo = request.form.get("correo", "").strip().lower()
 
             if correo == "":
-
                 mensaje = "Debes escribir un correo."
 
             else:
@@ -35,17 +34,19 @@ def inicio():
 
                     resultado = procesar_mensaje(encontrado)
 
+        return render_template(
+            "index.html",
+            resultado=resultado,
+            mensaje=mensaje
+        )
+
     except Exception:
 
-        traceback.print_exc()
-
-        mensaje = "❌ Se produjo un error interno. Revisa los logs de Render."
-
-    return render_template(
-        "index.html",
-        resultado=resultado,
-        mensaje=mensaje
-    )
+        return f"""
+<pre>
+{traceback.format_exc()}
+</pre>
+""", 500
 
 
 if __name__ == "__main__":
