@@ -12,15 +12,21 @@ def procesar(texto):
 
         soup = BeautifulSoup(texto, "html.parser")
 
-        # Obtener todo el texto del correo
         contenido = soup.get_text(" ", strip=True)
 
-        # Buscar cualquier secuencia de 6 dígitos
-        coincidencia = re.search(r"\b\d{6}\b", contenido)
+        # Buscar códigos como:
+        # 083917
+        # 0 8 3 9 1 7
+        coincidencias = re.findall(r"(?:\d\s*){6}", contenido)
 
-        if coincidencia:
+        for codigo in coincidencias:
 
-            datos["codigo"] = coincidencia.group()
+            codigo = re.sub(r"\s+", "", codigo)
+
+            if len(codigo) == 6:
+
+                datos["codigo"] = codigo
+                return datos
 
     except Exception:
         pass

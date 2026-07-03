@@ -104,6 +104,11 @@ def leer_ultimos_correos():
             if not resultado["valido"]:
                 continue
 
+            print("ASUNTO:", asunto)
+            print("TO:", mensaje.get("To"))
+            print("DELIVERED:", mensaje.get("Delivered-To"))
+            print("----------------------------")
+            
             resultados.append({
 
                 "tipo": resultado["tipo"],
