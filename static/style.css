@@ -1,38 +1,141 @@
+/* =======================================================
+   DIGIXUA v2.0
+   ======================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
 
-    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
 
-    padding:0;
+    background:
+    radial-gradient(circle at top,#18204f 0%,#080811 40%,#000 100%);
 
-    background:#000;
+    min-height:100vh;
 
-    font-family:Arial, Helvetica, sans-serif;
+    overflow-x:hidden;
+
+    color:white;
 
 }
 
+/*======================================
+FONDO
+======================================*/
+
+.fondo{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at top right,
+    rgba(0,191,255,.12),transparent 40%),
+
+    radial-gradient(circle at bottom left,
+    rgba(157,77,255,.12),transparent 40%),
+
+    radial-gradient(circle at center,
+    rgba(0,210,106,.08),transparent 50%);
+
+    z-index:-1;
+
+}
+
+/*======================================
+CONTENEDOR
+======================================*/
+
 .contenedor{
 
-    width:520px;
+    width:100%;
+    max-width:620px;
 
-    max-width:92%;
+    margin:auto;
 
-    margin:50px auto;
+    padding:45px 20px 60px;
+
+}
+
+/*======================================
+CABECERA
+======================================*/
+
+.cabecera{
 
     text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.logo-principal{
+
+    width:180px;
+
+    border-radius:50%;
+
+    box-shadow:
+
+    0 0 25px rgba(0,191,255,.45),
+
+    0 0 50px rgba(157,77,255,.30);
+
+    transition:.35s;
+
+    animation:flotar 4s infinite ease-in-out;
+
+}
+
+.logo-principal:hover{
+
+    transform:scale(1.05);
 
 }
 
 h1{
 
+    margin-top:22px;
+
     color:#00BFFF;
 
-    font-size:72px;
+    font-size:70px;
 
-    font-weight:bold;
+    font-weight:900;
 
-    margin-bottom:35px;
+    letter-spacing:2px;
 
-    text-shadow:0 0 20px rgba(0,191,255,.45);
+    text-shadow:
+
+    0 0 20px rgba(0,191,255,.55);
+
+}
+
+.subtitulo{
+
+    margin-top:10px;
+
+    color:#d6d6d6;
+
+    font-size:19px;
+
+    line-height:30px;
+
+}
+
+/*======================================
+BUSCADOR
+======================================*/
+
+.buscador{
+
+    margin-top:25px;
 
 }
 
@@ -40,201 +143,303 @@ input{
 
     width:100%;
 
-    height:58px;
+    height:62px;
 
-    border:none;
+    border-radius:18px;
 
-    border-radius:14px;
+    border:1px solid rgba(255,255,255,.15);
 
-    background:#efefef;
+    background:rgba(255,255,255,.08);
 
-    padding-left:20px;
+    backdrop-filter:blur(15px);
+
+    color:white;
 
     font-size:18px;
 
-    box-sizing:border-box;
+    padding:0 20px;
 
-    outline:none;
+    transition:.35s;
 
-    transition:.25s;
+}
+
+input::placeholder{
+
+    color:#c9c9c9;
 
 }
 
 input:focus{
 
-    box-shadow:0 0 15px rgba(0,191,255,.8);
+    outline:none;
+
+    border-color:#00BFFF;
+
+    box-shadow:
+
+    0 0 20px rgba(0,191,255,.45);
 
 }
 
-button{
+/*======================================
+BOTONES
+======================================*/
 
-    width:100%;
-
-    height:58px;
-
-    margin-top:15px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:#00C853;
-
-    color:white;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-}
-
-button:hover{
-
-    background:#00B248;
-
-    transform:scale(1.02);
-
-}
-
-button:disabled{
-
-    background:#555;
-
-    cursor:wait;
-
-    transform:none;
-
-    opacity:.85;
-
-}
-
-.mensaje{
-
-    margin-top:25px;
-
-    background:#222;
-
-    color:white;
-
-    padding:18px;
-
-    border-radius:14px;
-
-    font-size:18px;
-
-}
-
-.tarjeta{
-
-    margin-top:30px;
-
-    background:#f7f7f7;
-
-    border-radius:18px;
-
-    padding:30px;
-
-    box-shadow:0 10px 30px rgba(0,191,255,.20);
-
-    animation:aparecer .35s ease;
-
-}
-
-.logo{
-
-    width:220px;
-
-    margin-bottom:25px;
-
-    animation:logo .5s ease;
-
-}
-
-.codigo{
-
-    font-size:72px;
-
-    font-weight:bold;
-
-    color:#111;
-
-    letter-spacing:10px;
-
-    margin:20px 0 30px;
-
-    animation:codigo .45s ease;
-
-}
-
-.tarjeta p{
-
-    color:#333;
-
-    font-size:18px;
-
-    line-height:28px;
-
-    margin:18px 0;
-
-}
-
+button,
 .boton{
 
     display:block;
 
     width:100%;
 
-    background:#00C853;
-
-    color:white;
-
-    text-decoration:none;
-
-    border:none;
-
-    border-radius:14px;
+    margin-top:18px;
 
     padding:18px;
 
-    box-sizing:border-box;
+    border:none;
 
-    font-size:20px;
-
-    font-weight:bold;
+    border-radius:18px;
 
     cursor:pointer;
 
-    transition:.25s;
+    text-decoration:none;
 
-    margin-top:15px;
+    font-size:21px;
+
+    font-weight:bold;
+
+    color:white;
+
+    background:
+
+    linear-gradient(135deg,#00D26A,#00BFFF);
+
+    transition:.30s;
+
+    box-shadow:
+
+    0 8px 25px rgba(0,210,106,.30);
 
 }
 
+button:hover,
 .boton:hover{
 
-    background:#00B248;
+    transform:translateY(-3px);
 
-    transform:scale(1.02);
+    box-shadow:
+
+    0 15px 35px rgba(0,191,255,.35);
 
 }
 
-@keyframes aparecer{
+button:disabled{
+
+    opacity:.7;
+
+    cursor:wait;
+
+}
+
+/*======================================
+MENSAJES
+======================================*/
+
+.mensaje{
+
+    margin-top:30px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    font-size:18px;
+
+    animation:fade .5s;
+
+}
+
+/*======================================
+TARJETA
+======================================*/
+
+.tarjeta{
+
+    margin-top:35px;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,.35);
+
+    animation:subir .45s;
+
+}
+
+.logo{
+
+    width:180px;
+
+    display:block;
+
+    margin:auto;
+
+}
+
+.tarjeta h2{
+
+    margin:25px 0;
+
+    color:white;
+
+    font-size:34px;
+
+    text-align:center;
+
+}
+
+.codigo{
+
+    margin:35px 0;
+
+    text-align:center;
+
+    font-size:74px;
+
+    font-weight:900;
+
+    color:white;
+
+    letter-spacing:10px;
+
+    text-shadow:
+
+    0 0 25px rgba(0,191,255,.45);
+
+}
+
+/*======================================
+DATOS
+======================================*/
+
+.datos{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    margin:30px 0;
+
+}
+
+.dato{
+
+    background:rgba(255,255,255,.06);
+
+    border-radius:16px;
+
+    padding:16px;
+
+}
+
+.dato span{
+
+    color:#9bdcff;
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+.dato strong{
+
+    font-size:18px;
+
+    word-break:break-word;
+
+}
+
+/*======================================
+ANIMACIONES
+======================================*/
+
+.fade{
+
+    animation:fade .5s;
+
+}
+
+@keyframes fade{
 
     from{
 
         opacity:0;
-
-        transform:translateY(20px);
 
     }
 
     to{
 
         opacity:1;
+
+    }
+
+}
+
+@keyframes subir{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes flotar{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
 
         transform:translateY(0);
 
@@ -242,65 +447,41 @@ button:disabled{
 
 }
 
-@keyframes logo{
+/*======================================
+RESPONSIVE
+======================================*/
 
-    from{
+@media(max-width:650px){
 
-        opacity:0;
+    .logo-principal{
 
-        transform:scale(.85);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:scale(1);
+        width:140px;
 
     }
-
-}
-
-@keyframes codigo{
-
-    from{
-
-        opacity:0;
-
-        transform:scale(.8);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:scale(1);
-
-    }
-
-}
-
-@media(max-width:600px){
 
     h1{
 
-        font-size:50px;
+        font-size:48px;
+
+    }
+
+    .subtitulo{
+
+        font-size:16px;
 
     }
 
     .codigo{
 
-        font-size:50px;
+        font-size:48px;
 
-        letter-spacing:6px;
+        letter-spacing:5px;
 
     }
 
-    .logo{
+    .tarjeta{
 
-        width:170px;
+        padding:25px;
 
     }
 
