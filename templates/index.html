@@ -21,11 +21,11 @@
 
 <div class="contenedor">
 
-    <!--================================-->
+    <!--====================================-->
     <!-- CABECERA -->
-    <!--================================-->
+    <!--====================================-->
 
-    <div class="cabecera">
+    <header class="cabecera">
 
         <img
             src="{{ url_for('static', filename='logos/logo.jpeg') }}"
@@ -37,17 +37,22 @@
         <p class="subtitulo">
 
             Consulta automática de códigos
-            <br>
+
+        </p>
+
+        <p class="descripcion">
+
             Netflix • Disney+
 
         </p>
 
-    </div>
+    </header>
 
 
-    <!--================================-->
-    <!-- BUSCADOR -->
-    <!--================================-->
+
+    <!--====================================-->
+    <!-- FORMULARIO -->
+    <!--====================================-->
 
     <form
         method="POST"
@@ -55,15 +60,24 @@
         class="buscador">
 
         <input
+
+            id="correo"
+
             type="email"
+
             name="correo"
-            placeholder="✉ Ingresa tu correo"
+
+            placeholder="✉ Ingresa el correo"
+
             autocomplete="off"
+
             required>
 
         <button
-            type="submit"
-            id="btnBuscar">
+
+            id="btnBuscar"
+
+            type="submit">
 
             🔍 BUSCAR
 
@@ -72,213 +86,193 @@
     </form>
 
 
-    <!--================================-->
+
+    <!--====================================-->
     <!-- MENSAJES -->
-    <!--================================-->
+    <!--====================================-->
 
     {% if mensaje %}
 
-        <div class="mensaje fade">
+    <div class="mensaje">
 
-            {{ mensaje }}
+        {{ mensaje }}
 
-        </div>
+    </div>
 
     {% endif %}
 
 
-    <!--================================-->
-    <!-- RESULTADOS -->
-    <!--================================-->
+
+    <!--====================================-->
+    <!-- RESULTADO -->
+    <!--====================================-->
 
     {% if resultado %}
 
-        <div class="tarjeta fade">
+    <section class="tarjeta">
 
-            <!--============================-->
-            <!-- LOGOS -->
-            <!--============================-->
+        <!--==============================-->
+        <!-- LOGOS -->
+        <!--==============================-->
 
-            {% if resultado.tipo == "DISNEY" %}
+        {% if resultado.tipo=="DISNEY" %}
 
-                <img
-                    src="{{ url_for('static', filename='logos/disney.png') }}"
-                    class="logo"
-                    alt="Disney">
+            <img
 
-                <h2>Disney+</h2>
+                src="{{ url_for('static', filename='logos/disney.png') }}"
 
-            {% elif resultado.tipo == "NETFLIX_CODIGO" %}
+                class="logo-servicio"
 
-                <img
-                    src="{{ url_for('static', filename='logos/netflix.png') }}"
-                    class="logo"
-                    alt="Netflix">
+                alt="Disney">
 
-                <h2>Netflix</h2>
+            <h2>Disney+</h2>
 
-            {% elif resultado.tipo == "NETFLIX_HOGAR" %}
+        {% elif resultado.tipo=="NETFLIX_CODIGO" %}
 
-                <img
-                    src="{{ url_for('static', filename='logos/netflix.png') }}"
-                    class="logo"
-                    alt="Netflix">
+            <img
 
-                <h2>Netflix Hogar</h2>
+                src="{{ url_for('static', filename='logos/netflix.png') }}"
 
-            {% elif resultado.tipo == "NETFLIX_SOLICITUD" %}
+                class="logo-servicio"
 
-                <img
-                    src="{{ url_for('static', filename='logos/netflix.png') }}"
-                    class="logo"
-                    alt="Netflix">
+                alt="Netflix">
 
-                <h2>Solicitud de inicio</h2>
+            <h2>Netflix</h2>
 
-            {% endif %}
+        {% elif resultado.tipo=="NETFLIX_HOGAR" %}
 
+            <img
 
+                src="{{ url_for('static', filename='logos/netflix.png') }}"
 
-            <!--============================-->
-            <!-- HOGAR Y SOLICITUD -->
-            <!--============================-->
+                class="logo-servicio"
 
-            {% if resultado.tipo == "NETFLIX_HOGAR"
-               or resultado.tipo == "NETFLIX_SOLICITUD" %}
+                alt="Netflix">
 
-                <div class="datos">
+            <h2>Netflix Hogar</h2>
 
-                    <div class="dato">
+        {% elif resultado.tipo=="NETFLIX_SOLICITUD" %}
 
-                        <span>Correo</span>
+            <img
 
-                        <strong>
+                src="{{ url_for('static', filename='logos/netflix.png') }}"
 
-                            {{ resultado.correo }}
+                class="logo-servicio"
 
-                        </strong>
+                alt="Netflix">
 
-                    </div>
+            <h2>Solicitud de inicio</h2>
 
-                    <div class="dato">
-
-                        <span>Fecha</span>
-
-                        <strong>
-
-                            {{ resultado.fecha }}
-
-                        </strong>
-
-                    </div>
-
-                </div>
-
-                {% if resultado.enlace %}
-
-                    <a
-                        class="boton"
-                        href="{{ resultado.enlace }}"
-                        target="_blank">
-
-                        {% if resultado.tipo=="NETFLIX_HOGAR" %}
-
-                            ✔ SÍ, LA ENVIÉ YO
-
-                        {% else %}
-
-                            ✔ APROBAR
-
-                        {% endif %}
-
-                    </a>
-
-                {% endif %}
+        {% endif %}
 
 
+
+        <!--==============================-->
+        <!-- HOGAR / SOLICITUD -->
+        <!--==============================-->
+
+        {% if resultado.tipo=="NETFLIX_HOGAR"
+           or resultado.tipo=="NETFLIX_SOLICITUD" %}
+
+        <div class="datos">
+
+            <div class="dato">
+
+                <span>Correo</span>
+
+                <strong>
+
+                    {{ resultado.correo }}
+
+                </strong>
+
+            </div>
+
+            <div class="dato">
+
+                <span>Fecha</span>
+
+                <strong>
+
+                    {{ resultado.fecha }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        {% if resultado.enlace %}
+
+        <a
+
+            class="boton"
+
+            href="{{ resultado.enlace }}"
+
+            target="_blank">
+
+            {% if resultado.tipo=="NETFLIX_HOGAR" %}
+
+                ✔ SÍ, LA ENVIÉ YO
 
             {% else %}
 
-                <!--============================-->
-                <!-- CÓDIGOS -->
-                <!--============================-->
-
-                <div
-                    id="codigo"
-                    class="codigo">
-
-                    {{ resultado.codigo }}
-
-                </div>
-
-                <button
-                    id="btnCopiar"
-                    class="boton"
-                    type="button"
-                    onclick="copiarCodigo()">
-
-                    📋 COPIAR CÓDIGO
-
-                </button>
+                ✔ APROBAR
 
             {% endif %}
 
+        </a>
+
+        {% endif %}
+
+        {% else %}
+
+
+
+        <!--==============================-->
+        <!-- CÓDIGO -->
+        <!--==============================-->
+
+        <div
+
+            id="codigo"
+
+            class="codigo">
+
+            {{ resultado.codigo }}
+
         </div>
+
+        <button
+
+            id="btnCopiar"
+
+            class="boton"
+
+            type="button"
+
+            onclick="copiarCodigo()">
+
+            📋 COPIAR CÓDIGO
+
+        </button>
+
+        {% endif %}
+
+    </section>
 
     {% endif %}
 
 </div>
 
 
-<script>
 
-//=====================================
-// BOTÓN BUSCAR
-//=====================================
+<!--====================================-->
+<!-- JAVASCRIPT -->
+<!--====================================-->
 
-const formulario =
-    document.getElementById("formBuscar");
-
-const botonBuscar =
-    document.getElementById("btnBuscar");
-
-formulario.addEventListener("submit", function(){
-
-    botonBuscar.disabled = true;
-
-    botonBuscar.innerHTML =
-        "⏳ BUSCANDO...";
-
-});
-
-
-//=====================================
-// COPIAR
-//=====================================
-
-function copiarCodigo(){
-
-    const codigo =
-        document.getElementById("codigo").innerText;
-
-    navigator.clipboard.writeText(codigo);
-
-    const boton =
-        document.getElementById("btnCopiar");
-
-    boton.innerHTML =
-        "✅ COPIADO";
-
-    setTimeout(function(){
-
-        boton.innerHTML =
-            "📋 COPIAR CÓDIGO";
-
-    },2000);
-
-}
-
-</script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 

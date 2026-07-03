@@ -1,6 +1,7 @@
-/* =======================================================
-   DIGIXUA v2.0
-   ======================================================= */
+/*=========================================================
+DIGIXUA v2.0
+Diseño profesional
+=========================================================*/
 
 *{
     margin:0;
@@ -12,20 +13,21 @@ body{
 
     font-family:Arial,Helvetica,sans-serif;
 
-    background:
-    radial-gradient(circle at top,#18204f 0%,#080811 40%,#000 100%);
-
     min-height:100vh;
-
-    overflow-x:hidden;
 
     color:white;
 
+    background:
+    radial-gradient(circle at top,#17254d 0%,#090910 40%,#000000 100%);
+
+    overflow-x:hidden;
+
 }
 
-/*======================================
+
+/*=========================================================
 FONDO
-======================================*/
+=========================================================*/
 
 .fondo{
 
@@ -33,39 +35,45 @@ FONDO
 
     inset:0;
 
+    z-index:-1;
+
     background:
 
-    radial-gradient(circle at top right,
-    rgba(0,191,255,.12),transparent 40%),
+    radial-gradient(circle at top left,
+    rgba(0,191,255,.15),
+    transparent 35%),
 
-    radial-gradient(circle at bottom left,
-    rgba(157,77,255,.12),transparent 40%),
+    radial-gradient(circle at bottom right,
+    rgba(157,77,255,.18),
+    transparent 40%),
 
     radial-gradient(circle at center,
-    rgba(0,210,106,.08),transparent 50%);
-
-    z-index:-1;
+    rgba(0,210,106,.08),
+    transparent 55%);
 
 }
 
-/*======================================
+
+/*=========================================================
 CONTENEDOR
-======================================*/
+=========================================================*/
 
 .contenedor{
 
     width:100%;
-    max-width:620px;
+
+    max-width:650px;
 
     margin:auto;
 
-    padding:45px 20px 60px;
+    padding:40px 20px 70px;
 
 }
 
-/*======================================
+
+/*=========================================================
 CABECERA
-======================================*/
+=========================================================*/
 
 .cabecera{
 
@@ -81,15 +89,19 @@ CABECERA
 
     border-radius:50%;
 
+    display:block;
+
+    margin:auto;
+
     box-shadow:
 
-    0 0 25px rgba(0,191,255,.45),
+    0 0 20px rgba(0,191,255,.45),
 
-    0 0 50px rgba(157,77,255,.30);
+    0 0 50px rgba(157,77,255,.25);
+
+    animation:flotar 5s ease-in-out infinite;
 
     transition:.35s;
-
-    animation:flotar 4s infinite ease-in-out;
 
 }
 
@@ -103,9 +115,9 @@ h1{
 
     margin-top:22px;
 
-    color:#00BFFF;
+    font-size:66px;
 
-    font-size:70px;
+    color:#00BFFF;
 
     font-weight:900;
 
@@ -113,7 +125,7 @@ h1{
 
     text-shadow:
 
-    0 0 20px rgba(0,191,255,.55);
+    0 0 20px rgba(0,191,255,.45);
 
 }
 
@@ -121,21 +133,30 @@ h1{
 
     margin-top:10px;
 
-    color:#d6d6d6;
+    font-size:20px;
 
-    font-size:19px;
-
-    line-height:30px;
+    color:white;
 
 }
 
-/*======================================
-BUSCADOR
-======================================*/
+.descripcion{
+
+    margin-top:8px;
+
+    color:#bdbdbd;
+
+    font-size:16px;
+
+}
+
+
+/*=========================================================
+FORMULARIO
+=========================================================*/
 
 .buscador{
 
-    margin-top:25px;
+    margin-top:35px;
 
 }
 
@@ -145,70 +166,73 @@ input{
 
     height:62px;
 
+    border:none;
+
     border-radius:18px;
 
-    border:1px solid rgba(255,255,255,.15);
+    padding:0 22px;
 
-    background:rgba(255,255,255,.08);
+    background:rgba(255,255,255,.10);
 
-    backdrop-filter:blur(15px);
+    backdrop-filter:blur(18px);
 
     color:white;
 
     font-size:18px;
 
-    padding:0 20px;
+    outline:none;
 
-    transition:.35s;
+    border:1px solid rgba(255,255,255,.12);
+
+    transition:.30s;
 
 }
 
 input::placeholder{
 
-    color:#c9c9c9;
+    color:#d8d8d8;
 
 }
 
 input:focus{
 
-    outline:none;
-
     border-color:#00BFFF;
 
     box-shadow:
 
-    0 0 20px rgba(0,191,255,.45);
+    0 0 18px rgba(0,191,255,.35);
 
 }
 
-/*======================================
+
+/*=========================================================
 BOTONES
-======================================*/
+=========================================================*/
 
 button,
 .boton{
-
-    display:block;
 
     width:100%;
 
     margin-top:18px;
 
-    padding:18px;
-
     border:none;
 
     border-radius:18px;
 
+    padding:18px;
+
     cursor:pointer;
 
-    text-decoration:none;
-
-    font-size:21px;
+    font-size:20px;
 
     font-weight:bold;
 
     color:white;
+
+    text-decoration:none;
+
+    display:block;
 
     background:
 
@@ -218,7 +242,7 @@ button,
 
     box-shadow:
 
-    0 8px 25px rgba(0,210,106,.30);
+    0 12px 25px rgba(0,191,255,.25);
 
 }
 
@@ -229,21 +253,22 @@ button:hover,
 
     box-shadow:
 
-    0 15px 35px rgba(0,191,255,.35);
+    0 20px 40px rgba(0,191,255,.30);
 
 }
 
 button:disabled{
 
-    opacity:.7;
-
     cursor:wait;
+
+    opacity:.75;
 
 }
 
-/*======================================
+
+/*=========================================================
 MENSAJES
-======================================*/
+=========================================================*/
 
 .mensaje{
 
@@ -253,21 +278,24 @@ MENSAJES
 
     border-radius:18px;
 
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,.12);
+    text-align:center;
 
     font-size:18px;
 
-    animation:fade .5s;
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+
+    animation:aparecer .4s;
 
 }
 
-/*======================================
+
+/*=========================================================
 TARJETA
-======================================*/
+=========================================================*/
 
 .tarjeta{
 
@@ -279,9 +307,9 @@ TARJETA
 
     background:rgba(255,255,255,.08);
 
-    backdrop-filter:blur(20px);
-
     border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(20px);
 
     box-shadow:
 
@@ -291,7 +319,7 @@ TARJETA
 
 }
 
-.logo{
+.logo-servicio{
 
     width:180px;
 
@@ -303,13 +331,13 @@ TARJETA
 
 .tarjeta h2{
 
-    margin:25px 0;
+    margin-top:25px;
+
+    text-align:center;
 
     color:white;
 
     font-size:34px;
-
-    text-align:center;
 
 }
 
@@ -323,19 +351,20 @@ TARJETA
 
     font-weight:900;
 
-    color:white;
-
     letter-spacing:10px;
+
+    color:white;
 
     text-shadow:
 
-    0 0 25px rgba(0,191,255,.45);
+    0 0 18px rgba(0,191,255,.50);
 
 }
 
-/*======================================
+
+/*=========================================================
 DATOS
-======================================*/
+=========================================================*/
 
 .datos{
 
@@ -345,29 +374,29 @@ DATOS
 
     gap:18px;
 
-    margin:30px 0;
+    margin:35px 0;
 
 }
 
 .dato{
 
-    background:rgba(255,255,255,.06);
+    padding:18px;
 
     border-radius:16px;
 
-    padding:16px;
+    background:rgba(255,255,255,.05);
 
 }
 
 .dato span{
 
-    color:#9bdcff;
-
     display:block;
 
     margin-bottom:8px;
 
-    font-size:14px;
+    color:#7fd9ff;
+
+    font-size:15px;
 
 }
 
@@ -379,31 +408,10 @@ DATOS
 
 }
 
-/*======================================
+
+/*=========================================================
 ANIMACIONES
-======================================*/
-
-.fade{
-
-    animation:fade .5s;
-
-}
-
-@keyframes fade{
-
-    from{
-
-        opacity:0;
-
-    }
-
-    to{
-
-        opacity:1;
-
-    }
-
-}
+=========================================================*/
 
 @keyframes subir{
 
@@ -411,7 +419,7 @@ ANIMACIONES
 
         opacity:0;
 
-        transform:translateY(25px);
+        transform:translateY(30px);
 
     }
 
@@ -420,6 +428,22 @@ ANIMACIONES
         opacity:1;
 
         transform:none;
+
+    }
+
+}
+
+@keyframes aparecer{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
 
     }
 
@@ -447,11 +471,12 @@ ANIMACIONES
 
 }
 
-/*======================================
-RESPONSIVE
-======================================*/
 
-@media(max-width:650px){
+/*=========================================================
+RESPONSIVE
+=========================================================*/
+
+@media(max-width:700px){
 
     .logo-principal{
 
@@ -461,13 +486,19 @@ RESPONSIVE
 
     h1{
 
-        font-size:48px;
+        font-size:46px;
 
     }
 
     .subtitulo{
 
-        font-size:16px;
+        font-size:18px;
+
+    }
+
+    .descripcion{
+
+        font-size:14px;
 
     }
 
@@ -482,6 +513,29 @@ RESPONSIVE
     .tarjeta{
 
         padding:25px;
+
+    }
+
+}
+
+@media(max-width:450px){
+
+    .contenedor{
+
+        padding:25px 15px 50px;
+
+    }
+
+    input{
+
+        height:58px;
+
+    }
+
+    button,
+    .boton{
+
+        font-size:18px;
 
     }
 

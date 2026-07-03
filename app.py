@@ -22,15 +22,21 @@ def inicio():
 
         else:
 
-            encontrado = buscar_destinatario(correo)
+            try:
 
-            if encontrado is None:
+                encontrado = buscar_destinatario(correo)
 
-                mensaje = "⚠ No hay mensajes recientes."
+                if encontrado is None:
 
-            else:
+                    mensaje = "⚠ No hay mensajes recientes."
 
-                resultado = procesar_mensaje(encontrado)
+                else:
+
+                    resultado = procesar_mensaje(encontrado)
+
+            except Exception as e:
+
+                mensaje = f"❌ Error interno: {str(e)}"
 
     return render_template(
         "index.html",
