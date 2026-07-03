@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import traceback
 
 from servicios.buscador import buscar_destinatario
 from servicios.parser import procesar_mensaje
@@ -12,17 +13,17 @@ def inicio():
     resultado = None
     mensaje = None
 
-    if request.method == "POST":
+    try:
 
-        correo = request.form.get("correo", "").strip().lower()
+        if request.method == "POST":
 
-        if correo == "":
+            correo = request.form.get("correo", "").strip().lower()
 
-            mensaje = "Debes escribir un correo."
+            if correo == "":
 
-        else:
+                mensaje = "Debes escribir un correo."
 
-            try:
+            else:
 
                 encontrado = buscar_destinatario(correo)
 
@@ -34,9 +35,11 @@ def inicio():
 
                     resultado = procesar_mensaje(encontrado)
 
-            except Exception as e:
+    except Exception:
 
-                mensaje = f"❌ Error interno: {str(e)}"
+        traceback.print_exc()
+
+        mensaje = "❌ Se produjo un error interno. Revisa los logs."
 
     return render_template(
         "index.html",
