@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DIGIXUA</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>DIGIXUA</h1>
+
+    <form method="POST" id="formBuscar">
+
+        <input
+            type="email"
+            name="correo"
+            placeholder="Ingresa tu correo"
+            autocomplete="off"
+            required>
+
+        <button
+            type="submit"
+            id="btnBuscar">
+
+            🔍 BUSCAR
+
+        </button>
+
+    </form>
+
+
+    {% if mensaje %}
+
+        <div class="mensaje">
+
+            {{ mensaje }}
+
+        </div>
+
+    {% endif %}
+
+
+    {% if resultado %}
+
+        <div class="tarjeta">
+
+            <!-- ========================= -->
+            <!-- LOGOS -->
+            <!-- ========================= -->
+
+            {% if resultado.tipo == "DISNEY" %}
+
+                <img
+                    src="{{ url_for('static', filename='logos/disney.png') }}"
+                    class="logo"
+                    alt="Disney">
+
+            {% elif resultado.tipo == "NETFLIX_CODIGO"
+                 or resultado.tipo == "NETFLIX_HOGAR"
+                 or resultado.tipo == "NETFLIX_SOLICITUD" %}
+
+                <img
+                    src="{{ url_for('static', filename='logos/netflix.png') }}"
+                    class="logo"
+                    alt="Netflix">
+
+            {% endif %}
+
+
+            <!-- ========================= -->
+            <!-- NETFLIX HOGAR Y SOLICITUD -->
+            <!-- ========================= -->
+
+            {% if resultado.tipo == "NETFLIX_HOGAR"
+               or resultado.tipo == "NETFLIX_SOLICITUD" %}
+
+                <p>
+
+                    <strong>Correo</strong><br>
+
+                    {{ resultado.correo }}
+
+                </p>
+
+                <p>
+
+                    <strong>Fecha</strong><br>
+
+                    {{ resultado.fecha }}
+
+                </p>
+
+                {% if resultado.enlace %}
+
+                    <a
+                        class="boton"
+                        href="{{ resultado.enlace }}"
+                        target="_blank">
+
+                        {% if resultado.tipo == "NETFLIX_HOGAR" %}
+
+                            SÍ, LA ENVIÉ YO
+
+                        {% else %}
+
+                            APROBAR
+
+                        {% endif %}
+
+                    </a>
+
+                {% endif %}
+
+            {% else %}
+
+                <!-- ========================= -->
+                <!-- CÓDIGOS -->
+                <!-- ========================= -->
+
+                <div
+                    id="codigo"
+                    class="codigo">
+
+                    {{ resultado.codigo }}
+
+                </div>
+
+                <button
+                    id="btnCopiar"
+                    class="boton"
+                    type="button"
+                    onclick="copiarCodigo()">
+
+                    📋 COPIAR CÓDIGO
+
+                </button>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<script>
+
+//==============================
+// BOTÓN BUSCAR
+//==============================
+
+const formulario =
+    document.getElementById("formBuscar");
+
+const botonBuscar =
+    document.getElementById("btnBuscar");
+
+formulario.addEventListener("submit", function(){
+
+    botonBuscar.disabled = true;
+
+    botonBuscar.innerHTML =
+        "⏳ BUSCANDO...";
+
+});
+
+
+//==============================
+// COPIAR CÓDIGO
+//==============================
+
+function copiarCodigo(){
+
+    const codigo =
+        document.getElementById("codigo").innerText;
+
+    navigator.clipboard.writeText(codigo);
+
+    const boton =
+        document.getElementById("btnCopiar");
+
+    boton.innerHTML =
+        "✅ COPIADO";
+
+    setTimeout(function(){
+
+        boton.innerHTML =
+            "📋 COPIAR CÓDIGO";
+
+    },2000);
+
+}
+
+</script>
+
+</body>
+
+</html>
