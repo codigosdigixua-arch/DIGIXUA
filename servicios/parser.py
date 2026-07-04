@@ -86,8 +86,12 @@ def procesar_mensaje(resultado):
 
         datos = parser_netflix(texto) or {}
 
+        import logging
+        logging.warning(f"DATOS PARSER NETFLIX: {datos}")
+
         codigo = datos.get("codigo")
         enlace = datos.get("enlace")
+        
 
     elif resultado["tipo"] == "DISNEY":
 
