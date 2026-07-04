@@ -30,7 +30,7 @@ MINUTOS_BUSQUEDA = 15
 
 # Número máximo de correos que se revisarán
 
-MENSAJES_A_REVISAR = 5
+MENSAJES_A_REVISAR = 30
 
 
 # -----------------------------------------------------
