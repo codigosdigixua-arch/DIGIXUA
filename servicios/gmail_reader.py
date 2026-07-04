@@ -13,23 +13,40 @@ from config import (
 from servicios.filtros import analizar_asunto
 
 
+def decodificar_asunto(asunto):
+
+    if asunto is None:
+        return ""
+
+    partes = decode_header(asunto)
+
+    texto = ""
+
+    for parte, codificacion in partes:
+
+        if isinstance(parte, bytes):
+
+            texto += parte.decode(
+                codificacion or "utf-8",
+                errors="ignore"
+            )
+
+        else:
+
+            texto += parte
+
+    return texto.strip()
+
+
 def leer_ultimos_correos():
 
     resultados = []
 
-    # ===========================================
-    # Verificar configuración
-    # ===========================================
-
     if not EMAIL or not PASSWORD:
 
         raise Exception(
-            "No se encontraron las variables de entorno DIGIXUA_EMAIL y DIGIXUA_PASSWORD."
+            "No se encontraron las variables de entorno."
         )
-
-    # ===========================================
-    # Conectar con Gmail
-    # ===========================================
 
     mail = imaplib.IMAP4_SSL(
         IMAP_SERVER,
@@ -54,61 +71,52 @@ def leer_ultimos_correos():
 
         return resultados
 
-    lista_ids = mensajes[0].split()
+    ids = mensajes[0].split()
 
-    ultimos = lista_ids[-MENSAJES_A_REVISAR:]
+    if not ids:
 
-    for correo_id in reversed(ultimos):
+        mail.logout()
 
-        status, datos = mail.fetch(
-            correo_id,
-            "(RFC822)"
-        )
+        return resultados
 
-        if status != "OK":
-            continue
+    ids = ids[-MENSAJES_A_REVISAR:]
 
-        for respuesta in datos:
+    for correo_id in reversed(ids):
 
-            if not isinstance(respuesta, tuple):
-                continue
+        try:
 
-            mensaje = email.message_from_bytes(
-                respuesta[1]
+            status, datos = mail.fetch(
+                correo_id,
+                "(BODY.PEEK[HEADER])"
             )
 
-            # ======================================
-            # Asunto
-            # ======================================
-
-            asunto_original = mensaje.get("Subject")
-
-            if asunto_original is None:
+            if status != "OK":
                 continue
 
-            asunto, codificacion = decode_header(
-                asunto_original
-            )[0]
+            mensaje = None
 
-            if isinstance(asunto, bytes):
+            for respuesta in datos:
 
-                asunto = asunto.decode(
-                    codificacion or "utf-8",
-                    errors="ignore"
-                )
+                if isinstance(respuesta, tuple):
 
-            asunto = asunto.strip()
+                    mensaje = email.message_from_bytes(
+                        respuesta[1]
+                    )
+
+                    break
+
+            if mensaje is None:
+                continue
+
+            asunto = decodificar_asunto(
+                mensaje.get("Subject")
+            )
 
             resultado = analizar_asunto(asunto)
 
             if not resultado["valido"]:
                 continue
 
-            print("ASUNTO:", asunto)
-            print("TO:", mensaje.get("To"))
-            print("DELIVERED:", mensaje.get("Delivered-To"))
-            print("----------------------------")
-            
             resultados.append({
 
                 "tipo": resultado["tipo"],
@@ -126,6 +134,10 @@ def leer_ultimos_correos():
                 mensaje
 
             })
+
+        except Exception:
+
+            continue
 
     mail.logout()
 
