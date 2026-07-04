@@ -112,26 +112,17 @@ def leer_ultimos_correos(correo_buscado=None):
                 mensaje.get("Subject")
             )
 
-           print("=" * 60)
-            print("DESTINATARIO:", destinatario)
-            print("ASUNTO:", asunto)
+            import logging
+            logging.warning("=" * 60)
+            logging.warning(f"DESTINATARIO: {destinatario}")
+            logging.warning(f"ASUNTO: {asunto}")
 
             resultado = analizar_asunto(asunto)
 
-            print("RESULTADO:", resultado)
+            logging.warning(f"RESULTADO: {resultado}")
 
             if not resultado["valido"]:
                 continue
-
-            raise Exception(
-                f"""
-            DESTINATARIO: {destinatario}
-
-            ASUNTO: {asunto}
-
-            RESULTADO: {resultado}
-            """
-            )
 
             resultados.append({
 
