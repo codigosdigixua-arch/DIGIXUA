@@ -34,6 +34,9 @@ def inicio():
 
                     resultado = procesar_mensaje(encontrado)
 
+                    import logging
+                    logging.warning(f"RESULTADO FINAL: {resultado}")
+
         return render_template(
             "index.html",
             resultado=resultado,
