@@ -232,13 +232,13 @@
 
 
         <!--==============================-->
-        <!-- CÓDIGO -->
+        <!-- CÓDIGO O ENLACE -->
         <!--==============================-->
 
+        {% if resultado.codigo %}
+
         <div
-
             id="codigo"
-
             class="codigo">
 
             {{ resultado.codigo }}
@@ -246,19 +246,27 @@
         </div>
 
         <button
-
             id="btnCopiar"
-
             class="boton"
-
             type="button"
-
             onclick="copiarCodigo()">
 
-            📋 COPIAR CÓDIGO
+            🚨 BOTÓN NUEVO
 
         </button>
 
+        {% elif resultado.enlace %}
+
+        <a
+            class="boton"
+            href="{{ resultado.enlace }}"
+            target="_blank">
+
+            🟢 ENLACE NUEVO
+
+        </a>
+
+        {% endif %}
         {% endif %}
 
     </section>
