@@ -3,7 +3,7 @@ def analizar_asunto(asunto):
     asunto = asunto.lower().strip()
 
     # ==========================================
-    # DISNEY
+    # DISNEY+
     # ==========================================
 
     if "código de acceso único para disney" in asunto:
@@ -29,10 +29,14 @@ def analizar_asunto(asunto):
         }
 
     # ==========================================
-    # NETFLIX - NUEVA SOLICITUD
+    # NETFLIX - SOLICITUD DE INICIO
     # ==========================================
 
-    elif "nueva solicitud de inicio de sesión" in asunto:
+    elif (
+        "nueva solicitud de inicio de sesión" in asunto
+        or
+        "aprueba la nueva solicitud de inicio de sesión" in asunto
+    ):
 
         return {
             "valido": True,

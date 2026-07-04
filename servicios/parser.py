@@ -80,30 +80,32 @@ def procesar_mensaje(resultado):
     codigo = None
     enlace = None
 
+    datos = {}
+
     if resultado["tipo"] == "NETFLIX_CODIGO":
 
-        datos = parser_netflix(texto)
+        datos = parser_netflix(texto) or {}
 
-        codigo = datos["codigo"]
-        enlace = datos["enlace"]
+        codigo = datos.get("codigo")
+        enlace = datos.get("enlace")
 
     elif resultado["tipo"] == "DISNEY":
 
-        datos = parser_disney(texto)
+        datos = parser_disney(texto) or {}
 
-        codigo = datos["codigo"]
+        codigo = datos.get("codigo")
 
     elif resultado["tipo"] == "NETFLIX_HOGAR":
 
-        datos = parser_hogar(texto)
+        datos = parser_hogar(texto) or {}
 
-        enlace = datos["enlace"]
+        enlace = datos.get("enlace")
 
     elif resultado["tipo"] == "NETFLIX_SOLICITUD":
 
-        datos = parser_solicitud(texto)
+        datos = parser_solicitud(texto) or {}
 
-        enlace = datos["enlace"]
+        enlace = datos.get("enlace")
 
     return {
 
