@@ -5,12 +5,10 @@ def buscar_destinatario(correo):
 
     correo = correo.strip().lower()
 
-    correos = leer_ultimos_correos()
+    resultados = leer_ultimos_correos(correo)
 
-    for mensaje in correos:
+    if resultados:
 
-        if mensaje["destinatario"].lower() == correo:
-
-            return mensaje
+        return resultados[0]
 
     return None

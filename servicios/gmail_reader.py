@@ -1,6 +1,7 @@
 import imaplib
 import email
 from email.header import decode_header
+from email.utils import parseaddr
 
 from config import (
     EMAIL,
@@ -18,11 +19,9 @@ def decodificar_asunto(asunto):
     if asunto is None:
         return ""
 
-    partes = decode_header(asunto)
-
     texto = ""
 
-    for parte, codificacion in partes:
+    for parte, codificacion in decode_header(asunto):
 
         if isinstance(parte, bytes):
 
@@ -38,7 +37,7 @@ def decodificar_asunto(asunto):
     return texto.strip()
 
 
-def leer_ultimos_correos():
+def leer_ultimos_correos(correo_buscado=None):
 
     resultados = []
 
@@ -60,10 +59,7 @@ def leer_ultimos_correos():
 
     mail.select("INBOX")
 
-    status, mensajes = mail.search(
-        None,
-        "ALL"
-    )
+    status, mensajes = mail.search(None, "ALL")
 
     if status != "OK":
 
@@ -73,12 +69,6 @@ def leer_ultimos_correos():
 
     ids = mensajes[0].split()
 
-    if not ids:
-
-        mail.logout()
-
-        return resultados
-
     ids = ids[-MENSAJES_A_REVISAR:]
 
     for correo_id in reversed(ids):
@@ -87,7 +77,7 @@ def leer_ultimos_correos():
 
             status, datos = mail.fetch(
                 correo_id,
-                "(BODY.PEEK[HEADER])"
+                "(RFC822)"
             )
 
             if status != "OK":
@@ -108,6 +98,16 @@ def leer_ultimos_correos():
             if mensaje is None:
                 continue
 
+            destinatario = parseaddr(
+                mensaje.get("To", "")
+            )[1].lower()
+
+            if correo_buscado:
+
+                if destinatario != correo_buscado.lower():
+
+                    continue
+
             asunto = decodificar_asunto(
                 mensaje.get("Subject")
             )
@@ -121,19 +121,19 @@ def leer_ultimos_correos():
 
                 "tipo": resultado["tipo"],
 
-                "destinatario":
-                mensaje.get("To", "").strip(),
+                "destinatario": destinatario,
 
-                "fecha":
-                mensaje.get("Date", "").strip(),
+                "fecha": mensaje.get("Date", "").strip(),
 
-                "asunto":
-                asunto,
+                "asunto": asunto,
 
-                "mensaje":
-                mensaje
+                "mensaje": mensaje
 
             })
+
+            # Ya encontramos el correo buscado.
+            if correo_buscado:
+                break
 
         except Exception:
 
