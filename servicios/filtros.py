@@ -6,7 +6,13 @@ def analizar_asunto(asunto):
     # DISNEY+
     # ==========================================
 
-    if "código de acceso único para disney" in asunto:
+    if (
+        "código de acceso único para disney" in asunto
+        or 
+        "vas a actualizar tu hogar de disney" in asunto
+        or
+        "este es tu código de acceso único" in asunto
+    ):
 
         return {
             "valido": True,
