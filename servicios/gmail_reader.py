@@ -112,6 +112,8 @@ def leer_ultimos_correos(correo_buscado=None):
                 mensaje.get("Subject")
             )
 
+            print("ASUNTO:", asunto)
+
             resultado = analizar_asunto(asunto)
 
             if not resultado["valido"]:
