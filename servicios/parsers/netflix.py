@@ -15,36 +15,43 @@ def procesar(texto):
 
         textos = list(soup.stripped_strings)
 
+        # ==========================
+        # CÓDIGO DE 4 DÍGITOS
+        # ==========================
+
         for i, linea in enumerate(textos):
 
-            linea = linea.strip().lower()
+            linea_normalizada = linea.strip().lower()
 
-            # Código de inicio de sesión
-            if "ingresa este código para iniciar sesión" in linea:
+            if "ingresa este código para iniciar sesión" in linea_normalizada:
 
                 for siguiente in textos[i + 1:]:
 
-                    siguiente = siguiente.strip()
-
-                    # Eliminar espacios: 9 3 2 6 -> 9326
-                    numero = siguiente.replace(" ", "")
+                    numero = siguiente.strip().replace(" ", "")
 
                     if re.fullmatch(r"\d{4}", numero):
 
                         datos["codigo"] = numero
                         return datos
 
-            # Código temporal (Netflix fuera del hogar)
-            if "obtener código" in linea.lower():
+        # ==========================
+        # CÓDIGO TEMPORAL
+        # ==========================
 
-                for enlace in soup.find_all("a", href=True):
+        enlaces = soup.find_all("a", href=True)
 
-                    href = enlace["href"]
+        for enlace in enlaces:
 
-                    if "netflix" in href.lower():
+            texto_boton = enlace.get_text(" ", strip=True).lower()
 
-                        datos["enlace"] = href
-                        return datos
+            if (
+                "obtener código" in texto_boton
+                or
+                "obtener codigo" in texto_boton
+            ):
+
+                datos["enlace"] = enlace["href"]
+                return datos
 
     except Exception:
         pass

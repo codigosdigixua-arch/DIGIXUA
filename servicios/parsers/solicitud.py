@@ -17,7 +17,13 @@ def procesar(texto):
 
             texto_boton = enlace.get_text(" ", strip=True).lower()
 
-            if "aprobar" in texto_boton:
+            if (
+                "obtener código" in texto_boton
+                or
+                "obtener codigo" in texto_boton
+                or
+                "aprobar" in texto_boton
+            ):
 
                 datos["enlace"] = enlace["href"]
 
